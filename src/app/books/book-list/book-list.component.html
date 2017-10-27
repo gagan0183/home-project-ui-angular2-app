@@ -1,3 +1,12 @@
-<p>
-  book-list works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <a class="btn btn-success">New Book</a>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <app-book-item [book]="book" (click)="onSelected(book)"></app-book-item>
+      </ul>
+    </div>
+  </div>
+</div>

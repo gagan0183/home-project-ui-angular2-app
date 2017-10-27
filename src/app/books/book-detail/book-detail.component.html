@@ -1,3 +1,20 @@
-<p>
-  book-detail works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <img src="{{selectedBook?.imagePath}}" alt="" class="img-responsive">
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{selectedBook?.bookName}}</h1>
+    </div>
+    <div class="col-xs-12">
+      <button class="btn btn-primary">Edit</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <p>{{selectedBook?.author}}</p>
+  </div>
+</div>
