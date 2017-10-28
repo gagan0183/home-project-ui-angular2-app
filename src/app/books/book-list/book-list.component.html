@@ -2,10 +2,11 @@
   <div class="col-xs-12">
     <a class="btn btn-success">New Book</a>
   </div>
+  <br><br>
   <div class="row">
     <div class="col-xs-12">
       <ul class="list-group">
-        <app-book-item [book]="book" (click)="onSelected(book)"></app-book-item>
+        <app-book-item *ngFor="let book of books" [book]="book" (click)="onSelected(book)"></app-book-item>
       </ul>
     </div>
   </div>
