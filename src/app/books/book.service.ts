@@ -15,4 +15,12 @@ export class BookService {
   getBooks() {
     return this.books;
   }
+
+  getBook(id: number) {
+    return this.books[id];
+  }
+
+  deleteBook(book: Book) {
+    this.books.splice(this.books.indexOf(book), 1);
+  }
 }

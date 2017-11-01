@@ -9,6 +9,7 @@ import { Book } from '../book';
 })
 export class BookItemComponent implements OnInit {
   @Input() book: Book;
+  @Input() bookId: number;
 
   constructor() { }
 
