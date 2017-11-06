@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/rx';
 
 import { BookService } from '../book.service';
@@ -20,14 +20,15 @@ export class BookEditComponent implements OnInit {
   private isNew: boolean = true;
 
   constructor(private route: ActivatedRoute, private bookService: BookService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.isNew = true;
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         if(params.hasOwnProperty('id')) {
-          this.bookIndex = +params['id'];
           this.isNew = false;
+          this.bookIndex = +params['id'];
           this.book = this.bookService.getBook(this.bookIndex);
         }
         else {
@@ -43,9 +44,8 @@ export class BookEditComponent implements OnInit {
   }
 
   private initForm() {
-    console.log(this.book.completeDate.getDate() + '-' + (this.book.completeDate.getMonth() + 1) + '-' + this.book.completeDate.getFullYear());
     let isbn = '';
-    let name = '';
+    let bookName = '';
     let type = '';
     let author = '';
     let startDate = '';
@@ -54,17 +54,17 @@ export class BookEditComponent implements OnInit {
     let imagePath = '';
     if(!this.isNew) {
       isbn = this.book.isbn;
-      name = this.book.bookName;
+      bookName = this.book.bookName;
       type = this.book.type;
       author = this.book.author;
-      startDate = this.book.startDate.toISOString().substring(0,10);
-      completeDate = this.book.completeDate.toISOString().substring(0,10);
+      startDate = this.book.startDate;
+      completeDate = this.book.completeDate;
       revision = this.book.revision;
       imagePath = this.book.imagePath;
     }
     this.bookForm = this.formBuilder.group({
       isbn: [isbn, Validators.required],
-      name: [name, Validators.required],
+      bookName: [bookName, Validators.required],
       type: [type, Validators.required],
       author: [author, Validators.required],
       startDate: [startDate, Validators.required],
@@ -72,6 +72,27 @@ export class BookEditComponent implements OnInit {
       revision: [revision],
       imagePath: [imagePath, Validators.required]
     })
-    console.log(this.bookForm);
+  }
+
+  onSubmit() {
+    const newBook = this.bookForm.value;
+    console.log(newBook);
+    if(this.isNew) {
+      this.bookService.addBook(newBook);
+    }
+    else {
+      this.bookService.editBook(this.book, newBook);
+    }
+    this.navigate();
+  }
+
+  onCancel() {
+    this.navigate();
+  }
+
+  navigate() {
+    this.router.navigate(['../']);
   }
 }
+
+
