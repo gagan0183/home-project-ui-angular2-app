@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,9 @@ import { BookItemComponent } from './books/book-list/book-item.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { DropdownDirective } from './dropdown.directive';
 import { BookService } from './books/book.service';
+import { routing } from './app.routing';
+import { BookEditComponent } from './books/book-edit/book-edit.component';
+import { BookStartComponent } from './books/book-start.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,16 @@ import { BookService } from './books/book.service';
     BookListComponent,
     BookItemComponent,
     BookDetailComponent,
-    DropdownDirective
+    DropdownDirective,
+    BookEditComponent,
+    BookStartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing,
+    ReactiveFormsModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]

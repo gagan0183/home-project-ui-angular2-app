@@ -1,3 +1,115 @@
-<p>
-  book-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!bookForm.value">Save</button>
+          <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input
+              type="text"
+              id="isbn"
+              class="form-control"
+              formControlName="isbn">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <input
+              type="text"
+              id="type"
+              class="form-control"
+              formControlName="type">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input
+              type="text"
+              id="type"
+              class="form-control"
+              formControlName="author">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              class="form-control"
+              formControlName="startDate">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="completeDate">Complete Date</label>
+            <input
+              type="date"
+              id="completeDate"
+              class="form-control"
+              formControlName="completeDate">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="revision">Revision</label>
+            <input
+              type="checkbox"
+              id="revision"
+              formControlName="revision">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="image-url">Image Url</label>
+            <input
+              type="text"
+              id="image-url"
+              class="form-control"
+              formControlName="imagePath" #imageUrl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="img">
+            <img [src]="imageUrl.value">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
