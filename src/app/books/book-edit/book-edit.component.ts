@@ -51,8 +51,7 @@ export class BookEditComponent implements OnInit {
     let startDate = '';
     let completeDate = '';
     let revision = false;
-    let imagePath = '';
-    if(!this.isNew) {
+     if(!this.isNew) {
       isbn = this.book.isbn;
       bookName = this.book.bookName;
       type = this.book.type;
@@ -60,7 +59,6 @@ export class BookEditComponent implements OnInit {
       startDate = this.book.startDate;
       completeDate = this.book.completeDate;
       revision = this.book.revision;
-      imagePath = this.book.imagePath;
     }
     this.bookForm = this.formBuilder.group({
       isbn: [isbn, Validators.required],
@@ -69,16 +67,17 @@ export class BookEditComponent implements OnInit {
       author: [author, Validators.required],
       startDate: [startDate, Validators.required],
       completeDate: [completeDate, Validators.required],
-      revision: [revision],
-      imagePath: [imagePath, Validators.required]
+      revision: [revision]
     })
   }
 
   onSubmit() {
     const newBook = this.bookForm.value;
-    console.log(newBook);
     if(this.isNew) {
-      this.bookService.addBook(newBook);
+      this.bookService.addBook(newBook).subscribe(
+        (data) => console.log(data.json()),
+        (error) => console.error(error)
+      );
     }
     else {
       this.bookService.editBook(this.book, newBook);
