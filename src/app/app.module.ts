@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {ToastyModule} from 'ng2-toasty';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -16,6 +17,9 @@ import { routing } from './app.routing';
 import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { BookStartComponent } from './books/book-start.component';
 import { NotificationsService } from './notifications.service';
+import { HttpService } from './http-service.service';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader/loader.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import { NotificationsService } from './notifications.service';
     BookDetailComponent,
     DropdownDirective,
     BookEditComponent,
-    BookStartComponent
+    BookStartComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +40,10 @@ import { NotificationsService } from './notifications.service';
     HttpModule,
     routing,
     ToastyModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule.forRoot()
   ],
-  providers: [BookService, NotificationsService],
+  providers: [BookService, NotificationsService, HttpService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

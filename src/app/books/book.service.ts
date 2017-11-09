@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Headers } from '@angular/http';
 
 import { Book } from './book';
 import { bookConfig } from '../../assets/config/app.config';
+import { HttpService } from '../http-service.service';
+import { NotificationsService } from '../notifications.service';
 
 @Injectable()
 export class BookService {
   books: Book[] = [];
 
-  constructor(private http: Http) { }
+  constructor(private httpService: HttpService, private notificationService: NotificationsService) { }
 
   getBooks() {
     return this.books;
@@ -22,14 +24,22 @@ export class BookService {
     this.books.splice(this.books.indexOf(book), 1);
   }
 
-  addBook(book: Book) {
-    let body = book;
+  addBook(book: Book): string {
+    let object = book;
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', 'http://192.168.1.2:8080/book');
-    return this.http.post(bookConfig.post, body, {
-      headers: headers
-    });
+    let url = bookConfig.post;
+    let response: string;
+    this.httpService.post(url, headers, object).subscribe(
+        (data) => {
+          this.notificationService.success("Book", "Book has been successfully added");
+          response = 'success';
+        },
+        (error) => {
+          this.notificationService.error("Book", "There has been an error connecting API");
+          response = 'error';
+        }
+      );
+    return response;
   }
 
   editBook(oldBook: Book, newBook: Book) {

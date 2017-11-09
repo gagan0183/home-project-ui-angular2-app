@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs/rx';
 
 import { BookService } from '../book.service';
 import { Book } from '../book';
-import { NotificationsService } from '../../notifications.service';
 
 @Component({
   selector: 'app-book-edit',
@@ -21,7 +20,7 @@ export class BookEditComponent implements OnInit {
   private isNew: boolean = true;
 
   constructor(private route: ActivatedRoute, private bookService: BookService,
-              private formBuilder: FormBuilder, private router: Router, private notificationService: NotificationsService) {
+              private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
@@ -76,16 +75,12 @@ export class BookEditComponent implements OnInit {
   onSubmit() {
     console.log(this.bookForm);
     const newBook = this.bookForm.value;
+    let response: string;
     if(this.isNew) {
-      this.bookService.addBook(newBook).subscribe(
-        (data) => {
-          this.notificationService.success("Book", "Book has been successfully added");
-          this.navigate();
-        },
-        (error) => {
-          this.notificationService.error("Book", "There has been an error connecting API");
-        }
-      );
+      response = this.bookService.addBook(newBook);
+      if(response === 'success') {
+        this.navigate();
+      }
     }
     else {
       this.bookService.editBook(this.book, newBook);
