@@ -27,8 +27,6 @@ export class BookService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', 'http://192.168.1.2:8080/book');
-    headers.append('Access-Control-Request-Method', 'POST');
-    headers.append('Access-Control-Allow-Headers', 'origin, content-type, request-method');
     return this.http.post(bookConfig.post, body, {
       headers: headers
     });

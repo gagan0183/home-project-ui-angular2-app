@@ -1,9 +1,10 @@
 <div class="row">
   <div class="col-xs-12">
+    <ng2-toasty></ng2-toasty>
     <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success" [disabled]="!bookForm.value">Save</button>
+          <button type="submit" class="btn btn-success" [disabled]="!bookForm.valid" title="Please enter all the mandatory fields to make this enable">Save</button>
           <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
         </div>
       </div>
@@ -11,11 +12,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="isbn">ISBN</label>
+            <label for="isbn">ISBN<span class="star">*</span></label>
             <input
               type="text"
               id="isbn"
               class="form-control"
+              placeholder="123-123-123"
               formControlName="isbn">
           </div>
         </div>
@@ -23,11 +25,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="bookName">Name</label>
+            <label for="bookName">Name<span class="star">*</span></label>
             <input
               type="text"
               id="bookName"
               class="form-control"
+              placeholder="Please enter book name"
               formControlName="bookName">
           </div>
         </div>
@@ -35,11 +38,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="type">Type</label>
+            <label for="type">Type<span class="star">*</span></label>
             <input
               type="text"
               id="type"
               class="form-control"
+              placeholder="Children, Biographies etc."
               formControlName="type">
           </div>
         </div>
@@ -47,11 +51,12 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="author">Author</label>
+            <label for="author">Author<span class="star">*</span></label>
             <input
               type="text"
               id="type"
               class="form-control"
+              placeholder="Please enter author"
               formControlName="author">
           </div>
         </div>
@@ -59,7 +64,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="startDate">Start Date</label>
+            <label for="startDate">Start Date<span class="star">*</span></label>
             <input
               type="date"
               id="startDate"
@@ -71,7 +76,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="completeDate">Complete Date</label>
+            <label for="completeDate">Complete Date<span class="star">*</span></label>
             <input
               type="date"
               id="completeDate"
@@ -91,6 +96,7 @@
           </div>
         </div>
       </div>
+      <cite><span class="star">*</span> mandatory fields</cite>
     </form>
   </div>
 </div>
