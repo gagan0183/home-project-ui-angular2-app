@@ -13,7 +13,9 @@ export class BookService {
   constructor(private httpService: HttpService, private notificationService: NotificationsService) { }
 
   getBooks() {
-    return this.books;
+    const headers = new Headers();
+    let url = bookConfig.getAllBooks;
+    return this.httpService.get(url, headers);
   }
 
   getBook(id: number) {
@@ -24,22 +26,11 @@ export class BookService {
     this.books.splice(this.books.indexOf(book), 1);
   }
 
-  addBook(book: Book): string {
+  addBook(book: Book) {
     let object = book;
     const headers = new Headers();
     let url = bookConfig.post;
-    let response: string;
-    this.httpService.post(url, headers, object).subscribe(
-        (data) => {
-          this.notificationService.success("Book", "Book has been successfully added");
-          response = 'success';
-        },
-        (error) => {
-          this.notificationService.error("Book", "There has been an error connecting API");
-          response = 'error';
-        }
-      );
-    return response;
+    return this.httpService.post(url, headers, object);
   }
 
   editBook(oldBook: Book, newBook: Book) {

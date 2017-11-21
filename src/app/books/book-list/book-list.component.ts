@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../book';
 import { BookService } from '../book.service';
 
+import { NotificationsService } from '../../notifications.service';
+
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -11,9 +13,17 @@ import { BookService } from '../book.service';
 export class BookListComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private notificationService: NotificationsService) { }
 
   ngOnInit() {
-    this.books = this.bookService.getBooks();
+    this.bookService.getBooks().subscribe(
+        (data: Book[]) => {
+          this.books = data;
+        },
+        (error) => {
+          this.notificationService.error("Book", "There has been an error fetching the data");
+        }
+      );
+    console.log(this.books);
   }
 }
